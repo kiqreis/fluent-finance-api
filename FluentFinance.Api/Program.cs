@@ -20,9 +20,9 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapPost("/v1/transactions", (Request request, Handler handler) => handler.Handle(request))
-  .WithName("Transactions: Create")
-  .WithSummary("Create a new transaction")
+app.MapPost("/v1/categories", (Request request, Handler handler) => handler.Handle(request))
+  .WithName("Categories: Create")
+  .WithSummary("Create a new category")
   .Produces<Response<Transaction>>();
 
 app.Run();
@@ -31,12 +31,8 @@ app.Run();
 
 class Request
 {
+  public long Id { get; set; }
   public string Title { get; set; } = string.Empty;
-  public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-  public TransactionType Type { get; set; }
-  public decimal Amount { get; set; }
-  public long CategoryId { get; set; }
-  public string UserId { get; set; } = string.Empty;
 }
 
 //Response
@@ -49,22 +45,23 @@ class Response<T>
 
 //Handler
 
-class Handler
+class Handler(AppDbContext context)
 {
-  public Response<Transaction> Handle(Request request)
+  public Response<Category> Handle(Request request)
   {
-    return new Response<Transaction>
+    var category = new Category
     {
-      Data = new Transaction
-      {
-        Id = 1,
-        Title = request.Title,
-        Type = request.Type,
-        Amount = request.Amount,
-        CategoryId = request.CategoryId,
-        UserId = request.UserId
-      },
-      Message = "User created successfully"
+      Id = request.Id,
+      Title = request.Title
     };
-  } 
+
+    context.Categories.Add(category);
+    context.SaveChanges();
+
+    return new Response<Category>
+    {
+      Data = category,
+      Message = "Category created successfully"
+    };
+  }
 }
