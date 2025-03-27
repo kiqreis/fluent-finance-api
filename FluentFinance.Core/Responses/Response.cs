@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Text.Json.Serialization;
 
 namespace FluentFinance.Core.Responses;
@@ -11,6 +12,9 @@ public class Response<T>
   [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
   public string Message { get; set; } = string.Empty;
 
+  [DefaultValue(Configuration.DefaultStatusCode)]
+  public int Code => _code;
+  
   [JsonConstructor]
   public Response()
   {

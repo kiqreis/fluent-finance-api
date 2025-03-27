@@ -1,7 +1,7 @@
+using FluentFinance.Api.Common.Api;
 using FluentFinance.Api.Data;
 using FluentFinance.Api.Handlers;
 using FluentFinance.Api.Mappings;
-using FluentFinance.Api.Routes;
 using FluentFinance.Core.Handlers;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +23,6 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapCategoryRoutes();
+app.MapEndpoints();
 
 app.Run();
