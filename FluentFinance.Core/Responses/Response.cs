@@ -7,6 +7,8 @@ public class Response<T>
   private readonly int _code;
 
   public T? Data { get; set; }
+  
+  [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
   public string Message { get; set; } = string.Empty;
 
   [JsonConstructor]
