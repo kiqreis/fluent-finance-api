@@ -1,5 +1,6 @@
 using FluentFinance.Api.Routes.Categories;
 using FluentFinance.Api.Routes.Transactions;
+using FluentFinance.Core.Requests.Transactions;
 
 namespace FluentFinance.Api.Common.Api;
 
@@ -22,7 +23,8 @@ public static class Endpoint
       .MapEndpoint<CreateTransactionRoute>()
       .MapEndpoint<UpdateTransactionRoute>()
       .MapEndpoint<DeleteTransactionRoute>()
-      .MapEndpoint<GetByIdTransactionRoute>();
+      .MapEndpoint<GetByIdTransactionRoute>()
+      .MapEndpoint<GetTransactionByPeriodRoute>();
   }
 
   private static IEndpointRouteBuilder MapEndpoint<T>(this IEndpointRouteBuilder routeBuilder) where T : IEndpoint
