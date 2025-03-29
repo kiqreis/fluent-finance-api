@@ -20,7 +20,8 @@ public static class Endpoint
     group.MapGroup("/transactions")
       .WithTags("Transactions")
       .MapEndpoint<CreateTransactionRoute>()
-      .MapEndpoint<UpdateTransactionRoute>();
+      .MapEndpoint<UpdateTransactionRoute>()
+      .MapEndpoint<DeleteTransactionRoute>();
   }
 
   private static IEndpointRouteBuilder MapEndpoint<T>(this IEndpointRouteBuilder routeBuilder) where T : IEndpoint
