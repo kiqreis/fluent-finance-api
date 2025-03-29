@@ -7,14 +7,12 @@ namespace FluentFinance.Core.Responses.Transactions;
 
 public class TransactionResponseDto
 {
+  public long Id { get; set; }
   public string Title { get; set; } = string.Empty;
 
   [DefaultValue(TransactionType.Withdraw)]
   public TransactionType Type { get; set; } = TransactionType.Withdraw;
 
-  [JsonIgnore] public decimal Amount { get; set; }
-
-  [JsonPropertyName("amount")] public string FormattedAmount => $"${Amount:F2}";
-
+  public decimal Amount { get; set; }
   public Category Category { get; set; } = null!;
 }
