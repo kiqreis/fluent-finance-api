@@ -63,8 +63,8 @@ public class CategoryHandler(AppDbContext context, IMapper mapper) : ICategoryHa
 
   public async Task<Response<CategoryResponseDto?>> GetByIdAsync(long id)
   {
-    var category = await context.Categories.FindAsync(id);
 
+    var category = await context.Categories.FindAsync(id);
     if (category is null)
       return new Response<CategoryResponseDto?>(null, 404, "Category not found");
 
@@ -75,7 +75,7 @@ public class CategoryHandler(AppDbContext context, IMapper mapper) : ICategoryHa
 
   public async Task<PagedResponse<IList<CategoryResponseDto>>> GetAllAsync(GetAllCategoriesRequest request)
   {
-    var query = context.Categories.AsNoTracking();
+    var query = context.Categories.AsNoTracking().OrderBy(c => c.Title);
 
     var categories = await query
       .Skip((request.PageNumber - 1) * request.PageSize)

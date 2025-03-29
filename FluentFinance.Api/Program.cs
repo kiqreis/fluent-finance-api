@@ -15,6 +15,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<ICategoryHandler, CategoryHandler>();
+builder.Services.AddScoped<ITransactionHandler, TransactionHandler>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
