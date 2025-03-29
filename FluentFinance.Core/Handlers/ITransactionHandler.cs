@@ -7,8 +7,8 @@ namespace FluentFinance.Core.Handlers;
 public interface ITransactionHandler
 {
   Task<Response<TransactionResponseDto>> CreateAsync(CreateTransactionRequest request);
-  Task<Response<TransactionResponseDto>> UpdateAsync(UpdateTransactionRequest request);
-  Task<Response<TransactionResponseDto>> DeleteAsync(long id);
-  Task<Response<TransactionResponseDto>> GetById(long id);
-  Task<Response<TransactionResponseDto>> GetByPeriod(GetTransactionByPeriodRequest request);
+  Task<Response<TransactionResponseDto?>> UpdateAsync(UpdateTransactionRequest request);
+  Task<Response<TransactionResponseDto?>> DeleteAsync(long id);
+  Task<Response<TransactionResponseDto?>> GetById(long id);
+  Task<PagedResponse<IList<TransactionResponseDto>>> GetByPeriod(GetTransactionByPeriodRequest request);
 }
