@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FluentFinance.Api.Data.Mappings;
+namespace FluentFinance.Api.Data.Mappings.Identity;
 
 public class IdentityRoleMapping : IEntityTypeConfiguration<IdentityRole<long>>
 {
@@ -19,7 +19,13 @@ public class IdentityRoleMapping : IEntityTypeConfiguration<IdentityRole<long>>
     builder.HasIndex(x => x.NormalizedName).IsUnique();
 
     builder.Property(x => x.ConcurrencyStamp).IsConcurrencyToken();
-    builder.Property(x => x.Name).HasMaxLength(256);
-    builder.Property(x => x.NormalizedName).HasMaxLength(256);
+    
+    builder.Property(x => x.Name)
+      .HasMaxLength(256)
+      .IsRequired();
+    
+    builder.Property(x => x.NormalizedName)
+      .HasMaxLength(256)
+      .IsRequired();
   }
 }

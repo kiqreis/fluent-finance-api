@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FluentFinance.Api.Data.Mappings;
+namespace FluentFinance.Api.Data.Mappings.Identity;
 
 public class IdentityUserLoginMapping : IEntityTypeConfiguration<IdentityUserLogin<long>>
 {
