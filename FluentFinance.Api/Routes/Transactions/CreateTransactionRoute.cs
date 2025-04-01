@@ -20,7 +20,7 @@ public class CreateTransactionRoute : IEndpoint
     var result = await handler.CreateAsync(request);
 
     return result.IsSuccess
-      ? Results.Created($"/{result.Data?.Id}", result.Data)
+      ? Results.Created($"/{result.Data?.Id}", result)
       : Results.BadRequest(result.Data);
   }
 }

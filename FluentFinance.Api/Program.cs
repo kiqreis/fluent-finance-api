@@ -3,9 +3,15 @@ using FluentFinance.Api.Data;
 using FluentFinance.Api.Handlers;
 using FluentFinance.Api.Mappings;
 using FluentFinance.Core.Handlers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
+  .AddIdentityCookies();
+builder.Services.AddAuthorization();
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
 
 builder.Services.AddDbContext<AppDbContext>(opt =>

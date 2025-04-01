@@ -87,7 +87,7 @@ public class TransactionHandler(AppDbContext context, IMapper mapper) : ITransac
 
     var query = context.Transactions.AsNoTracking()
       .Where(t => t.CreatedAt >= request.StartDate && t.CreatedAt <= request.EndDate)
-      .OrderBy(t => t.CreatedAt);
+      .OrderByDescending(t => t.CreatedAt);
     
     var transactions = await query.Skip((request.PageNumber - 1) * request.PageSize)
       .Take(request.PageSize)
