@@ -32,10 +32,7 @@ public static class BuilderExtension
 
   public static void AddDataContexts(this WebApplicationBuilder builder)
   {
-    builder.Services.AddDbContext<AppDbContext>(opt =>
-    {
-      opt.UseSqlServer(Configuration.ConnectionString);
-    });
+    builder.Services.AddDbContext<AppDbContext>(opt => { opt.UseSqlServer(Configuration.ConnectionString); });
 
     builder.Services.AddIdentityCore<User>()
       .AddRoles<IdentityRole<long>>()
@@ -43,11 +40,19 @@ public static class BuilderExtension
       .AddApiEndpoints();
   }
 
-  public static void AddCrossOrigins(this WebApplicationBuilder builder)
+  public static void AddCrossOrigins(this WebApplicationBuilder builder, IConfiguration configuration)
   {
-    
+    builder.Services.AddCors(opt => opt.AddPolicy("wasm",
+      policy =>
+      {
+        policy.WithOrigins([
+            configuration.GetValue<string>("FrontendUrl")!, configuration.GetValue<string>("BackendUrl")!
+          ]).AllowAnyMethod()
+          .AllowAnyHeader()
+          .AllowCredentials();
+      }));
   }
-  
+
   public static void AddServices(this WebApplicationBuilder builder)
   {
     builder.Services.AddScoped<ICategoryHandler, CategoryHandler>();

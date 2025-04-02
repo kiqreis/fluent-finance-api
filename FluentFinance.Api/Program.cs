@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddConfiguration();
 builder.AddSecurity();
 builder.AddDataContexts();
-builder.AddCrossOrigins();
+builder.AddCrossOrigins(builder.Configuration);
 builder.AddDocs();
 builder.AddMapping();
 builder.AddServices();
@@ -17,8 +17,8 @@ if (app.Environment.IsDevelopment())
   app.ConfigureDevEnvironment();
 }
 
+app.UseCors("wasm");
 app.UseSecurity();
-
 app.MapEndpoints();
 
 app.Run();
