@@ -12,11 +12,12 @@ builder.AddServices();
 
 var app = builder.Build();
 
-app.UseAuthentication();
-app.UseAuthorization();
+if (app.Environment.IsDevelopment())
+{
+  app.ConfigureDevEnvironment();
+}
 
-app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSecurity();
 
 app.MapEndpoints();
 
