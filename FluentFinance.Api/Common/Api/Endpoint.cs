@@ -1,4 +1,6 @@
+using FluentFinance.Api.Models;
 using FluentFinance.Api.Routes.Categories;
+using FluentFinance.Api.Routes.Identity;
 using FluentFinance.Api.Routes.Transactions;
 using FluentFinance.Core.Requests.Transactions;
 
@@ -25,6 +27,15 @@ public static class Endpoint
       .MapEndpoint<DeleteTransactionRoute>()
       .MapEndpoint<GetByIdTransactionRoute>()
       .MapEndpoint<GetTransactionByPeriodRoute>();
+
+    group.MapGroup("/identity")
+      .WithTags("Identity")
+      .MapIdentityApi<User>();
+
+    group.MapGroup("/identity")
+      .WithTags("Identity")
+      .MapEndpoint<LogoutRoute>()
+      .MapEndpoint<GetRolesRoute>();
   }
 
   private static IEndpointRouteBuilder MapEndpoint<T>(this IEndpointRouteBuilder routeBuilder) where T : IEndpoint
