@@ -2,7 +2,7 @@
 @using System.ComponentModel.DataAnnotations
 @layout HeadlessLayout
 
-<MudThemeProvider Theme="@CoralPastelTheme" />
+<MudThemeProvider Theme="@CoralPastelTheme"/>
 
 <PageTitle>FluentFinance - Login</PageTitle>
 
@@ -13,7 +13,7 @@
                 <img
                     src="images/logotxt.png" alt="The new way to manage your finances"
                     width="255"
-                    style="border-radius: 12px;"
+                    style="border-radius: 12px; box-shadow: 0 4px 12px rgba(217, 111, 97, 0.5);"
                 >
             </div>
 
@@ -35,6 +35,13 @@
                     RequiredError="Invalid password"
                 />
             </MudForm>
+
+            <div class="d-flex flex-column gap-4 mt-8 mb-8">
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="flex-grow-1">Enter</MudButton>
+                <MudButton Variant="Variant.Outlined" Color="Color.Secondary"
+                           Class="flex-grow-1 custom-outlined-button">Register
+                </MudButton>
+            </div>
         </MudPaper>
     </MudItem>
 </MudGrid>
@@ -42,7 +49,7 @@
 @code
 {
     MudForm? _mudForm;
-    
+
     private static MudTheme CoralPastelTheme = new MudTheme
     {
         PaletteLight = new PaletteLight

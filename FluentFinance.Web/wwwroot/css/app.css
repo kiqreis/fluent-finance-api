@@ -61,3 +61,27 @@
 .loading-progress-text:after {
     content: var(--blazor-load-percentage-text, "Loading");
 }
+
+.custom-filled-button {
+    transition: all 0.3s ease;
+}
+
+.custom-filled-button:hover {
+    background-color: #E68A8A !important;
+    box-shadow: 0 4px 12px rgba(217, 111, 97, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Botão Register (Outlined) */
+.custom-outlined-button {
+    border-color: #D96F61 !important;
+    color: #D96F61 !important;
+    transition: all 0.3s ease;
+}
+
+.custom-outlined-button:hover {
+    background-color: rgba(217, 111, 97, 0.1) !important;
+    border-color: #C65A4C !important;
+    color: #C65A4C !important;
+    box-shadow: 0 4px 12px rgba(217, 111, 97, 0.3);
+}
