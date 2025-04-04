@@ -72,7 +72,6 @@
     transform: translateY(-2px);
 }
 
-/* Botão Register (Outlined) */
 .custom-outlined-button {
     border-color: #D96F61 !important;
     color: #D96F61 !important;
@@ -84,4 +83,11 @@
     border-color: #C65A4C !important;
     color: #C65A4C !important;
     box-shadow: 0 4px 12px rgba(217, 111, 97, 0.3);
+}
+
+.mud-appbar {
+    background-color: var(--mud-palette-primary) !important;
+    color: var(--mud-palette-text-primary) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
 }

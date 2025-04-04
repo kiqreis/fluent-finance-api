@@ -1,4 +1,4 @@
-@page "/login"
+@page "/register"
 @using System.ComponentModel.DataAnnotations
 @layout HeadlessLayout
 
@@ -35,9 +35,9 @@
             </MudForm>
 
             <div class="d-flex flex-column gap-4 mt-8 mb-8">
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="flex-grow-1">Enter</MudButton>
-                <MudButton Href="/register" Variant="Variant.Outlined" Color="Color.Secondary"
-                           Class="flex-grow-1 custom-outlined-button">Register
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="flex-grow-1">Register</MudButton>
+                <MudButton Href="/login" Variant="Variant.Outlined" Color="Color.Secondary"
+                           Class="flex-grow-1 custom-outlined-button">I already have an account
                 </MudButton>
             </div>
         </MudPaper>
