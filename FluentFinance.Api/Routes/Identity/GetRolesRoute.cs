@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using FluentFinance.Api.Common.Api;
+using FluentFinance.Core.Models.Account;
 
 namespace FluentFinance.Api.Routes.Identity;
 
@@ -15,13 +16,13 @@ public class GetRolesRoute : IEndpoint
     var identity = (ClaimsIdentity)user.Identity;
 
     var roles = identity.FindAll(identity.RoleClaimType)
-      .Select(claim => new
+      .Select(claim => new RoleClaim
       {
-        claim.Issuer,
-        claim.OriginalIssuer,
-        claim.Type,
-        claim.Value,
-        claim.ValueType
+        Issuer = claim.Issuer,
+        OriginalIssuer = claim.OriginalIssuer,
+        Type = claim.Type,
+        Value = claim.Value,
+        ValueType = claim.ValueType
       });
 
     return Task.FromResult<IResult>(TypedResults.Json(roles));
