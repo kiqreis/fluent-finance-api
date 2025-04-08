@@ -1,6 +1,7 @@
 @page "/register"
 @using System.ComponentModel.DataAnnotations
 @layout HeadlessLayout
+@inherits RegisterPage
 
 <PageTitle>FluentFinance - Login</PageTitle>
 
@@ -43,8 +44,3 @@
         </MudPaper>
     </MudItem>
 </MudGrid>
-
-@code
-{
-    MudForm? _mudForm;
-}
