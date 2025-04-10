@@ -12,7 +12,7 @@ public class AccountHandler(IHttpClientFactory httpClientFactory) : IAccountHand
   
   public async Task<Response<string?>> LoginAsync(LoginRequest request)
   {
-    var result = await _client.PostAsJsonAsync("identity/login?useCookies=true", request);
+    var result = await _client.PostAsJsonAsync("v1/identity/login?useCookies=true", request);
 
     return result.IsSuccessStatusCode
       ? new Response<string?>("Login successfully", 200, "Login successfully")
@@ -21,7 +21,7 @@ public class AccountHandler(IHttpClientFactory httpClientFactory) : IAccountHand
 
   public async Task<Response<string?>> RegisterAsync(RegisterRequest request)
   {
-    var result = await _client.PostAsJsonAsync("identity/register", request);
+    var result = await _client.PostAsJsonAsync("v1/identity/register", request);
 
     return result.IsSuccessStatusCode
       ? new Response<string?>("Registration completed successfully", 201, "Registration completed successfully")
@@ -32,6 +32,6 @@ public class AccountHandler(IHttpClientFactory httpClientFactory) : IAccountHand
   {
     var content = new StringContent("{}", Encoding.UTF8, "application/json");
 
-    await _client.PostAsJsonAsync("identity/logout", content);
+    await _client.PostAsJsonAsync("v1/identity/logout", content);
   }
 }

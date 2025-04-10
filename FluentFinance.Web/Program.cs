@@ -27,6 +27,6 @@ builder.Services
   .AddHttpClient(Configuration.HttpClientName, opt => { opt.BaseAddress = new Uri(Configuration.BackendUrl); })
   .AddHttpMessageHandler<CookieHandler>();
 
-builder.Services.AddScoped<IAccountHandler, AccountHandler>();
+builder.Services.AddTransient<IAccountHandler, AccountHandler>();
 
 await builder.Build().RunAsync();

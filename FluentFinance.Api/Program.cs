@@ -1,3 +1,4 @@
+using FluentFinance.Api;
 using FluentFinance.Api.Common.Api;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,8 +18,9 @@ if (app.Environment.IsDevelopment())
   app.ConfigureDevEnvironment();
 }
 
-app.UseCors("wasm");
+app.UseCors(ApiConfiguration.CorsPolicyName);
 app.UseSecurity();
 app.MapEndpoints();
 
 app.Run();
+  

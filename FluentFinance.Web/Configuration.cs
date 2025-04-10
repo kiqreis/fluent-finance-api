@@ -5,6 +5,7 @@ namespace FluentFinance.Web;
 public static class Configuration
 {
   public const string HttpClientName = "fluent-finance";
+  
   public static string BackendUrl { get; set; } = "http://localhost:5163";
   
   public static MudTheme Theme = new()

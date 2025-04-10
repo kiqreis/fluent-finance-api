@@ -1,5 +1,4 @@
 @page "/register"
-@using System.ComponentModel.DataAnnotations
 @layout HeadlessLayout
 @inherits RegisterPage
 
@@ -16,31 +15,46 @@
                 >
             </div>
 
-            <MudForm @ref="_mudForm">
+            <EditForm Model="@InputModel" OnValidSubmit="OnValidSubmitAsync">
+
+                <DataAnnotationsValidator/>
+
                 <MudTextField
                     T="string"
                     Label="E-mail"
+                    HelperText="Required field"
                     InputType="InputType.Email"
-                    Required="true"
-                    RequiredError="Enter your email"
-                    Validation="@(new EmailAddressAttribute { ErrorMessage = "Invalid email" })"
+                    For="@(() => InputModel.Email)"
+                    @bind-Value="InputModel.Email"
                 />
 
                 <MudTextField
                     T="string"
                     Label="Password"
+                    HelperText="Required field"
                     InputType="InputType.Password"
-                    Required="true"
-                    RequiredError="Invalid password"
+                    For="@(() => InputModel.Password)"
+                    @bind-Value="InputModel.Password"
                 />
-            </MudForm>
 
-            <div class="d-flex flex-column gap-4 mt-8 mb-8">
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="flex-grow-1">Register</MudButton>
-                <MudButton Href="/login" Variant="Variant.Outlined" Color="Color.Secondary"
-                           Class="flex-grow-1 custom-outlined-button">I already have an account
-                </MudButton>
-            </div>
+                <div class="d-flex flex-column gap-4 mt-8 mb-8">
+                    @if (IsBusy)
+                    {
+                        <MudProgressCircular Color="Color.Info" Indeterminate="true"/>
+                    }
+                    else
+                    {
+                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary"
+                                   Class="flex-grow-1">Register
+                        </MudButton>
+                        <MudButton Href="/login" Variant="Variant.Outlined" Color="Color.Secondary"
+                                   Class="flex-grow-1 custom-outlined-button">I already have an account
+                        </MudButton>
+                    }
+                </div>
+
+            </EditForm>
+
         </MudPaper>
     </MudItem>
 </MudGrid>

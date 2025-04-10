@@ -8,7 +8,7 @@ namespace FluentFinance.Web.Security;
 public class CookieAuthenticationStateProvider(IHttpClientFactory httpClientFactory)
   : AuthenticationStateProvider, ICookieAuthenticationStateProvider
 {
-  private bool _isAutheticated;
+  private bool _isAutheticated = false;
   private readonly HttpClient _client = httpClientFactory.CreateClient(Configuration.HttpClientName);
 
   public async Task<bool> CheckAuthenticatedAsync()
@@ -32,7 +32,7 @@ public class CookieAuthenticationStateProvider(IHttpClientFactory httpClientFact
     var id = new ClaimsIdentity(claims, nameof(CookieAuthenticationStateProvider));
 
     user = new ClaimsPrincipal(id);
-    
+
     _isAutheticated = true;
 
     return new AuthenticationState(user);
@@ -41,7 +41,17 @@ public class CookieAuthenticationStateProvider(IHttpClientFactory httpClientFact
   public void NotifyAuthenticationStateChanged() =>
     base.NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
 
-  private async Task<User?> GetUser() => await _client.GetFromJsonAsync<User?>("v1/identity/manage/info");
+  private async Task<User?> GetUser()
+  {
+    try
+    {
+      return await _client.GetFromJsonAsync<User?>("v1/identity/manage/info");
+    }
+    catch
+    {
+      return null;
+    }
+  }
 
   private async Task<List<Claim>> GetClaims(User user)
   {

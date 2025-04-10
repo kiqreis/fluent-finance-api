@@ -6,7 +6,8 @@ namespace FluentFinance.Api.Routes.Identity;
 
 public class GetRolesRoute : IEndpoint
 {
-  public static void Map(IEndpointRouteBuilder routeBuilder) => routeBuilder.MapGet("/roles", Handle);
+  public static void Map(IEndpointRouteBuilder routeBuilder) => routeBuilder.MapGet("/roles", Handle)
+    .RequireAuthorization();
 
   private static Task<IResult> Handle(ClaimsPrincipal user)
   {

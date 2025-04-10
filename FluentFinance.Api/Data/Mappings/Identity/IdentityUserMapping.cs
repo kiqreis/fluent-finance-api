@@ -23,22 +23,18 @@ public class IdentityUserMapping : IEntityTypeConfiguration<User>
     builder.Property(x => x.Email)
       .HasMaxLength(180)
       .IsRequired();
-    
+
     builder.Property(x => x.NormalizedEmail)
-      .HasMaxLength(180)
-      .IsRequired();
-    
+      .HasMaxLength(180);
+
     builder.Property(x => x.UserName)
-      .HasMaxLength(180)
-      .IsRequired();
-    
+      .HasMaxLength(180);
+
     builder.Property(x => x.NormalizedUserName)
-      .HasMaxLength(180)
-      .IsRequired();
-    
+      .HasMaxLength(180);
+
     builder.Property(x => x.PhoneNumber)
-      .HasMaxLength(20)
-      .IsRequired();
+      .HasMaxLength(20);
     
     builder.Property(x => x.ConcurrencyStamp).IsConcurrencyToken();
 
