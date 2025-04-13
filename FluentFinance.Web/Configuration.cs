@@ -21,6 +21,7 @@ public static class Configuration
     PaletteLight = new PaletteLight
     {
       Primary = "#FF9999",
+      Success = "#FF9999",
       Secondary = "#FFD1CC",
       Tertiary = "#FFE6E6",
       Background = "#FFF8F5",
@@ -30,6 +31,7 @@ public static class Configuration
     PaletteDark = new PaletteDark
     {
       Primary = "#FF9999",
+      Success = "#FFD1CC",
       Secondary = "#FFD1CC",
       Tertiary = "#FFE6E6",
       Background = "#2A1F1F",

@@ -1,4 +1,4 @@
-using FluentFinance.Core.Handlers;
+﻿using FluentFinance.Core.Handlers;
 using FluentFinance.Core.Requests.Account;
 using FluentFinance.Web.Security;
 using Microsoft.AspNetCore.Components;
@@ -6,18 +6,15 @@ using MudBlazor;
 
 namespace FluentFinance.Web.Pages.Identity;
 
-public partial class RegisterPage : ComponentBase
+public partial class LoginPage : ComponentBase
 {
   [Inject] public ISnackbar Snackbar { get; set; } = null!;
-
   [Inject] public NavigationManager NavigationManager { get; set; } = null!;
-
   [Inject] public ICookieAuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
-
   [Inject] public IAccountHandler Handler { get; set; } = null!;
 
   public bool IsBusy { get; set; }
-  public RegisterRequest InputModel { get; set; } = new();
+  public LoginRequest InputModel { get; set; } = new();
 
   protected override async Task OnInitializedAsync()
   {
@@ -34,24 +31,20 @@ public partial class RegisterPage : ComponentBase
 
     try
     {
-      var result = await Handler.RegisterAsync(InputModel);
+      var result = await Handler.LoginAsync(InputModel);
 
       if (result.IsSuccess)
-      {
-        Snackbar.Add(result.Message, Severity.Success);
-
-        NavigationManager.NavigateTo("/login");
-      }
+        NavigationManager.NavigateTo("/");
       else
-      {
         Snackbar.Add(result.Message, Severity.Error);
-      }
     }
     catch (Exception e)
     {
       Snackbar.Add(e.Message, Severity.Error);
     }
     finally
-    { IsBusy = false; }
+    {
+      IsBusy = false;
+    }
   }
 }

@@ -1,50 +1,46 @@
 @page "/login"
 @using System.ComponentModel.DataAnnotations
 @layout HeadlessLayout
+@inherits LoginPage
 
 <PageTitle>FluentFinance - Login</PageTitle>
 
 <MudGrid Justify="Justify.Center">
-    <MudItem xs="12" sm="12" md="8" lg="6" xl="6" xxl="6">
-        <MudPaper Class="mud-width-full pa-8">
-            <div class="d-flex justify-center pb-8 pt-8">
-                <img
-                    src="images/logotxt.png" alt="The new way to manage your finances"
-                    width="255"
-                    style="border-radius: 12px; box-shadow: 0 4px 12px rgba(217, 111, 97, 0.5);"
-                >
-            </div>
+	<MudItem xs="12" sm="12" md="8" lg="6" xl="6" xxl="6">
+		<MudPaper Class="mud-width-full pa-8">
+			<div class="d-flex justify-center pb-8 pt-8">
+				<img src="images/logotxt.png" alt="The new way to manage your finances"
+					 width="255"
+					 style="border-radius: 12px; box-shadow: 0 4px 12px #fcd3c4;">
+			</div>
 
-            <MudForm @ref="_mudForm">
-                <MudTextField
-                    T="string"
-                    Label="E-mail"
-                    InputType="InputType.Email"
-                    Required="true"
-                    RequiredError="Enter your email"
-                    Validation="@(new EmailAddressAttribute { ErrorMessage = "Invalid email" })"
-                />
+			<MudForm @ref="_mudForm">
+				<MudTextField T="string"
+							  Label="E-mail"
+							  InputType="InputType.Email"
+							  Required="true"
+							  RequiredError="Enter your email"
+							  Validation="@(new EmailAddressAttribute { ErrorMessage = "Invalid email" })" />
 
-                <MudTextField
-                    T="string"
-                    Label="Password"
-                    InputType="InputType.Password"
-                    Required="true"
-                    RequiredError="Invalid password"
-                />
-            </MudForm>
+				<MudTextField T="string"
+							  Label="Password"
+							  InputType="InputType.Password"
+							  Required="true"
+							  RequiredError="Invalid password" />
+			</MudForm>
 
-            <div class="d-flex flex-column gap-4 mt-8 mb-8">
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="flex-grow-1">Enter</MudButton>
-                <MudButton Href="/register" Variant="Variant.Outlined" Color="Color.Secondary"
-                           Class="flex-grow-1 custom-outlined-button">Register
-                </MudButton>
-            </div>
-        </MudPaper>
-    </MudItem>
+			<div class="d-flex flex-column gap-4 mt-8 mb-8">
+				<MudButton Variant="Variant.Filled" Color="Color.Primary" Class="flex-grow-1">Enter</MudButton>
+				<MudButton Href="/register" Variant="Variant.Outlined" Color="Color.Secondary"
+						   Class="flex-grow-1 custom-outlined-button">
+					Register
+				</MudButton>
+			</div>
+		</MudPaper>
+	</MudItem>
 </MudGrid>
 
 @code
 {
-    MudForm? _mudForm;
+	MudForm? _mudForm;
 }
