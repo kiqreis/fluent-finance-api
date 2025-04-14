@@ -4,19 +4,30 @@
 
 <PageTitle>FluentFinance - Exit app</PageTitle>
 
-<MudText Typo="Typo.h3">Finalizing the session</MudText>
-
-<MudPaper Class="pa-8 mt-4">
-	<div lass="d-flex justify-center pb-8 pt-8">
-		<img src="images/mainlogo.png" alt="The new way to manage your finances"
-			 width="255"
-			 style="border-radius: 12px; box-shadow: 0 4px 12px #fcd3c4;">
-	</div>
-
-	<MudAlert Severity="Severity.Info">
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-10">
+	<MudText Typo="Typo.h3" Align="Align.Center" Class="mb-4">
 		Finalizing the session
-		<MudButton Variant="Variant.Text" Href="/">
-			Go to login screen
-		</MudButton>
-	</MudAlert>
-</MudPaper>
+	</MudText>
+
+	<MudPaper Class="pa-6" Elevation="4" Style="border-radius: 16px;">
+		<div class="d-flex justify-center mb-6">
+			<img src="images/mainlogo.png"
+				 alt="The new way to manage your finances"
+				 width="255"
+				 style="border-radius: 12px; box-shadow: 0 4px 12px #fcd3c4;">
+		</div>
+
+		<MudAlert Severity="Severity.Info" Dense="true" Elevation="0" Style="padding: 0; margin: 0 auto; width: 100%; max-width: 400px;">
+			<div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 16px;">
+				<MudText Typo="Typo.subtitle1">Finished session</MudText>
+				<MudButton Variant="Variant.Filled"
+						   Color="Color.Primary"
+						   Size="Size.Large"
+						   Href="/"
+						   Class="px-6">
+					Go to login screen
+				</MudButton>
+			</div>
+		</MudAlert>
+	</MudPaper>
+</MudContainer>
