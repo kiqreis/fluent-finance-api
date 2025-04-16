@@ -27,7 +27,7 @@ public class CategoryHandler(IHttpClientFactory httpClientFactory) : ICategoryHa
   }
 
   public async Task<PagedResponse<IList<CategoryResponseDto>>> GetAllAsync(GetAllCategoriesRequest request) =>
-    await httpClient.GetFromJsonAsync<PagedResponse<IList<CategoryResponseDto>>>("v1/categories")
+    await httpClient.GetFromJsonAsync<PagedResponse<IList<CategoryResponseDto>>>($"v1/categories?pageNumber={request.PageNumber}&pageSize={request.PageSize}")
     ?? new PagedResponse<IList<CategoryResponseDto>>(null, 400, "It was not possible to obtain the categories");
 
   public async Task<Response<CategoryResponseDto?>> GetByIdAsync(long id) =>

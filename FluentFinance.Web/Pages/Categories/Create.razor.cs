@@ -1,16 +1,16 @@
-﻿using FluentFinance.Core.Requests.Categories;
-using FluentFinance.Web.Handlers;
+﻿using FluentFinance.Core.Handlers;
+using FluentFinance.Core.Requests.Categories;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace FluentFinance.Web.Pages.Categories;
 
-public class CreatCategoryPage : ComponentBase
+public partial class CreatCategoryPage : ComponentBase
 {
   public bool IsBusy { get; set; } = false;
   public CreateCategoryRequest InputModel { get; set; } = new();
 
-  [Inject] public CategoryHandler Handler { get; set; } = null!;
+  [Inject] public ICategoryHandler Handler { get; set; } = null!;
   [Inject] public NavigationManager NavigationManager { get; set; } = null!;
   [Inject] public ISnackbar Snackbar { get; set; } = null!;
 
