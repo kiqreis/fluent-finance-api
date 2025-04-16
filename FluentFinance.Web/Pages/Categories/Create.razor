@@ -19,5 +19,11 @@
 					  HelperText="Required field"
 					  @bind-Value="InputModel.Description"
 					  For="@(() => InputModel.Description)" />
+
+		<MudButton ButtonType="ButtonType.Submit"
+				   Variant="Variant.Filled"
+				   Color="Color.Primary">
+			Save category
+		</MudButton>
 	</EditForm>
 </MudPaper>
