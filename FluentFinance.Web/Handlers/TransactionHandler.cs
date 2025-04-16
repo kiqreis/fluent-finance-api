@@ -1,34 +1,53 @@
-﻿using FluentFinance.Core.Handlers;
+﻿using System.Net.Http.Json;
+using FluentFinance.Core.Common.Extensions;
+using FluentFinance.Core.Handlers;
 using FluentFinance.Core.Requests.Transactions;
 using FluentFinance.Core.Responses;
 using FluentFinance.Core.Responses.Transactions;
 
 namespace FluentFinance.Web.Handlers;
 
-public class TransactionHandler : ITransactionHandler
+public class TransactionHandler(IHttpClientFactory httpClientFactory) : ITransactionHandler
 {
-  public Task<Response<TransactionResponseDto>> CreateAsync(CreateTransactionRequest request)
+  private readonly HttpClient httpClient = httpClientFactory.CreateClient(Configuration.HttpClientName);
+
+  public async Task<Response<TransactionResponseDto>> CreateAsync(CreateTransactionRequest request)
   {
-    throw new NotImplementedException();
+    var result = await httpClient.PostAsJsonAsync("v1/transactions", request);
+
+    return await result.Content.ReadFromJsonAsync<Response<TransactionResponseDto>>()
+      ?? new Response<TransactionResponseDto>(null, 400, "Failure to create transaction");
   }
 
-  public Task<Response<TransactionResponseDto?>> DeleteAsync(long id)
+  public async Task<Response<TransactionResponseDto?>> DeleteAsync(long id)
   {
-    throw new NotImplementedException();
+    var result = await httpClient.DeleteAsync($"v1/transactions/{id}");
+
+    return await result.Content.ReadFromJsonAsync<Response<TransactionResponseDto?>>()
+      ?? new Response<TransactionResponseDto?>(null, 400, "Failure to delete transaction");
   }
 
-  public Task<Response<TransactionResponseDto?>> GetById(long id)
+  public async Task<Response<TransactionResponseDto?>> GetById(long id) =>
+    await httpClient.GetFromJsonAsync<Response<TransactionResponseDto?>>($"v1/transactions/{id}")
+    ?? new Response<TransactionResponseDto?>(null, 400, "It was not possible to obtain the transaction");
+
+  public async Task<PagedResponse<IList<TransactionResponseDto>>> GetByPeriod(GetTransactionByPeriodRequest request)
   {
-    throw new NotImplementedException();
+    const string format = "yyyy-MM-dd";
+
+    var startDate = request.StartDate is not null ? request.StartDate.Value.ToString(format) : DateTime.Now.GetFirstDay().ToString(format);
+    var endDate = request.EndDate is not null ? request.EndDate.Value.ToString(format) : DateTime.Now.GetLastDay().ToString(format);
+    var url = $"v1/transactions?startDate={startDate}&endDate={endDate}";
+
+    return await httpClient.GetFromJsonAsync<PagedResponse<IList<TransactionResponseDto>>>(url)
+      ?? new PagedResponse<IList<TransactionResponseDto>>(null, 400, "It was not possible to obtain the transactions");
   }
 
-  public Task<PagedResponse<IList<TransactionResponseDto>>> GetByPeriod(GetTransactionByPeriodRequest request)
+  public async Task<Response<TransactionResponseDto?>> UpdateAsync(UpdateTransactionRequest request)
   {
-    throw new NotImplementedException();
-  }
+    var result = await httpClient.PutAsJsonAsync($"v1/transactions/{request.UserId}", request);
 
-  public Task<Response<TransactionResponseDto?>> UpdateAsync(UpdateTransactionRequest request)
-  {
-    throw new NotImplementedException();
+    return await result.Content.ReadFromJsonAsync<Response<TransactionResponseDto?>>()
+      ?? new Response<TransactionResponseDto?>(null, 400, "Failure to update transaction");
   }
 }
