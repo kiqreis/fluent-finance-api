@@ -21,7 +21,7 @@ public class Response<T>
     _code = Configuration.DefaultStatusCode;
   }
 
-  public Response(T data, int code = Configuration.DefaultStatusCode, string message = null!)
+  public Response(T? data, int code = Configuration.DefaultStatusCode, string message = null!)
   {
     Data = data;
     Message = message;
