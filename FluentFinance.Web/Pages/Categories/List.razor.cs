@@ -10,6 +10,7 @@ public partial class ListCategoriesPage : ComponentBase
 {
   public bool IsBusy { get; set; } = false;
   public IList<CategoryResponseDto> Categories { get; set; } = [];
+  public string SearchTerm { get; set; } = string.Empty;
 
   [Inject] public ISnackbar Snackbar { get; set; } = null!;
   [Inject] public ICategoryHandler Handler { get; set; } = null!;
@@ -37,4 +38,19 @@ public partial class ListCategoriesPage : ComponentBase
       IsBusy = false;
     }
   }
+
+  public Func<CategoryResponseDto, bool> Filter => category =>
+    {
+      if (string.IsNullOrEmpty(SearchTerm))
+        return true;
+
+      if (category.Id.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+        return true;
+
+      if (category.Description is not null && category.Description.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+        return true;
+
+      return false;
+    };
 }
+

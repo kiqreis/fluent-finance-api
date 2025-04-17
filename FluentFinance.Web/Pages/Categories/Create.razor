@@ -3,11 +3,14 @@
 
 <PageTitle>Categories</PageTitle>
 
-<MudText Typo="Typo.h3">Create a new category</MudText>
 
 <MudPaper Class="pa-8 mt-4">
 	<EditForm Model="@InputModel" OnInvalidSubmit="OnValidSubmitAsync">
+		<div Style="display: flex; justify-content: center; align-items: center; width: 100%;">
+			<MudText Typo="Typo.h6" Color="Color.Primary">Create a new category</MudText>
+		</div>
 		<DataAnnotationsValidator />
+		<ValidationSummary />
 
 		<MudTextField Label="Title"
 					  HelperText="Required field"
@@ -22,7 +25,8 @@
 
 		<MudButton ButtonType="ButtonType.Submit"
 				   Variant="Variant.Filled"
-				   Color="Color.Primary">
+				   Color="Color.Primary"
+				   Disabled="@IsBusy">
 			Save category
 		</MudButton>
 	</EditForm>
