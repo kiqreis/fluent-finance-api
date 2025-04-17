@@ -5,6 +5,7 @@
 				  Theme="Configuration.Theme" />
 
 <MudSnackbarProvider />
+<MudDialogProvider />
 
 <AuthorizeView>
 	<Authorized>
@@ -19,10 +20,10 @@
 				<MudText>
 					@context.User.Identity?.Name
 				</MudText>
-				<MudSwitch Color="Color.Inherit"
+				<MudSwitch Color="Color.Dark"
+						   ThumbIcon="@Icons.Material.Outlined.LightbulbCircle"
 						   @bind-Value="@_isDarkMode"
 						   T="bool"
-						   ThumbIcon="@Icons.Material.TwoTone.LightbulbCircle"
 						   Class="ma-4" />
 			</MudAppBar>
 			<MudDrawer @bind-Open="@_isDrawerOpened"

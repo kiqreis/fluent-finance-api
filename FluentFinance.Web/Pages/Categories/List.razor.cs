@@ -13,6 +13,7 @@ public partial class ListCategoriesPage : ComponentBase
   public string SearchTerm { get; set; } = string.Empty;
 
   [Inject] public ISnackbar Snackbar { get; set; } = null!;
+  [Inject] public IDialogService DialogService { get; set; } = null!;
   [Inject] public ICategoryHandler Handler { get; set; } = null!;
 
   protected override async Task OnInitializedAsync()
@@ -36,6 +37,40 @@ public partial class ListCategoriesPage : ComponentBase
     finally
     {
       IsBusy = false;
+    }
+  }
+
+  public async void OnDeleteButtonClicked(long id, string title)
+  {
+    var result = await DialogService.ShowMessageBox(
+      "Look out!",
+      $"When proceeding, the {title} category will be removed",
+      yesText: "Remove",
+      cancelText: "Cancel"
+      );
+
+    if (result is true)
+      await OnDeleteAsync(id);
+
+    StateHasChanged();
+  }
+
+  public async Task OnDeleteAsync(long id)
+  {
+    try
+    {
+      await Handler.DeleteAsync(id);
+
+      var updatedCategories = Categories.ToList();
+
+      updatedCategories.RemoveAll(c => c.Id == id);
+      Categories = updatedCategories;
+
+      Snackbar.Add("Category removed successfully", Severity.Success);
+    }
+    catch (Exception e)
+    {
+      Snackbar.Add(e.Message, Severity.Error);
     }
   }
 
