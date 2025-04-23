@@ -9,7 +9,7 @@ public class CreateTransactionRequest : BaseRequest
   public string Title { get; set; } = string.Empty;
 
   [Required(ErrorMessage = "Invalid title")]
-  public TransactionType Type { get; set; }
+  public TransactionType Type { get; set; } = TransactionType.Withdraw;
   
   [Required(ErrorMessage = "Invalid amount")]
   public decimal Amount { get; set; }

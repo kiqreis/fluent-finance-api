@@ -21,5 +21,17 @@
                       HelperText="Required field"
                       @bind-Value="InputModel.Amount"
                       For="@(() => InputModel.Amount)"/>
+        
+        <MudDatePicker Label="When?"
+                       @bind-Date="@InputModel.PaidOrReceivedAt"
+                       HelperText="Select a date where the amount will be paid or received"/>
+        
+        <MudSelect T="TransactionType"
+                   Label="Type of movement"
+                   AnchorOrigin="Origin.BottomCenter"
+                   @bind-Value="InputModel.Type">
+            <MudSelectItem T="TransactionType" Value="TransactionType.Deposit">Deposit</MudSelectItem>
+            <MudSelectItem T="TransactionType" Value="TransactionType.Withdraw">Withdraw</MudSelectItem>
+        </MudSelect>
     </EditForm>
 </MudPaper>
