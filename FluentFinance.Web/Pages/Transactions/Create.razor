@@ -2,36 +2,55 @@
 @inherits CreateTransactionPage
 
 <MudPaper Class="pa-8 mt-4">
-    <EditForm Model="@InputModel" OnValidSubmit="OnValidSubmitAsync">
-        <div Style="display: flex; justify-content: center; align-items: center; width: 100%;">
-            <MudText Typo="Typo.h6" Color="Color.Primary">New financial launch</MudText>
-        </div>
-        
-        <DataAnnotationsValidator/>
+	<EditForm Model="@InputModel" OnValidSubmit="OnValidSubmitAsync">
+		<div Style="display: flex; justify-content: center; align-items: center; width: 100%;">
+			<MudText Typo="Typo.h6" Color="Color.Primary">New financial launch</MudText>
+		</div>
 
-        <MudTextField Label="Title"
-                      HelperText="Required field"
-                      @bind-Value="InputModel.Title"
-                      For="@(() => InputModel.Title)"/>
+		<DataAnnotationsValidator />
 
-        <MudTextField Label="How much"
-                      T="decimal"
-                      Format="C"
-                      Variant="Variant.Text"
-                      HelperText="Required field"
-                      @bind-Value="InputModel.Amount"
-                      For="@(() => InputModel.Amount)"/>
-        
-        <MudDatePicker Label="When?"
-                       @bind-Date="@InputModel.PaidOrReceivedAt"
-                       HelperText="Select a date where the amount will be paid or received"/>
-        
-        <MudSelect T="TransactionType"
-                   Label="Type of movement"
-                   AnchorOrigin="Origin.BottomCenter"
-                   @bind-Value="InputModel.Type">
-            <MudSelectItem T="TransactionType" Value="TransactionType.Deposit">Deposit</MudSelectItem>
-            <MudSelectItem T="TransactionType" Value="TransactionType.Withdraw">Withdraw</MudSelectItem>
-        </MudSelect>
-    </EditForm>
+		<MudTextField Label="Title"
+					  HelperText="Required field"
+					  @bind-Value="InputModel.Title"
+					  For="@(() => InputModel.Title)" />
+
+		<MudTextField Label="How much"
+					  T="decimal"
+					  Format="C"
+					  Variant="Variant.Text"
+					  HelperText="Required field"
+					  @bind-Value="InputModel.Amount"
+					  For="@(() => InputModel.Amount)" />
+
+		<MudDatePicker Label="When?"
+					   @bind-Date="InputModel.PaidOrReceivedAt"
+					   HelperText="Select a date where the amount will be paid or received" />
+
+		<MudSelect T="TransactionType"
+				   Label="Type of movement"
+				   AnchorOrigin="Origin.BottomCenter"
+				   @bind-Value="InputModel.Type">
+			<MudSelectItem T="TransactionType" Value="TransactionType.Deposit">Deposit</MudSelectItem>
+			<MudSelectItem T="TransactionType" Value="TransactionType.Withdraw">Withdraw</MudSelectItem>
+		</MudSelect>
+
+		<MudSelect T="long"
+				   Label="Category"
+				   @bind-Value="InputModel.CategoryId"
+				   AnchorOrigin="Origin.BottomCenter">
+			@foreach (var category in Categories)
+			{
+				<MudSelectItem T="long" Value="@category.Id">
+					@category.Title
+				</MudSelectItem>
+			}
+		</MudSelect>
+
+		<MudButton ButtonType="ButtonType.Submit"
+				   Variant="Variant.Filled"
+				   Color="Color.Primary"
+				   Class="mt-4">
+			Save
+		</MudButton>
+	</EditForm>
 </MudPaper>

@@ -1,6 +1,7 @@
 using AutoMapper;
 using FluentFinance.Api.Data;
 using FluentFinance.Core.Common.Extensions;
+using FluentFinance.Core.Enums;
 using FluentFinance.Core.Handlers;
 using FluentFinance.Core.Models;
 using FluentFinance.Core.Requests.Transactions;
@@ -14,6 +15,11 @@ public class TransactionHandler(AppDbContext context, IMapper mapper) : ITransac
 {
   public async Task<Response<TransactionResponseDto>> CreateAsync(CreateTransactionRequest request)
   {
+    if (request is { Type: TransactionType.Withdraw, Amount: >= 0 })
+    {
+      request.Amount *= -1;
+    }
+
     var transaction = new Transaction
     {
       UserId = request.UserId,
@@ -88,7 +94,7 @@ public class TransactionHandler(AppDbContext context, IMapper mapper) : ITransac
     var query = context.Transactions.AsNoTracking()
       .Where(t => t.CreatedAt >= request.StartDate && t.CreatedAt <= request.EndDate)
       .OrderByDescending(t => t.CreatedAt);
-    
+
     var transactions = await query.Skip((request.PageNumber - 1) * request.PageSize)
       .Take(request.PageSize)
       .ToListAsync();
